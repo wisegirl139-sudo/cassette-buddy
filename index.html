@@ -27,9 +27,25 @@
           <h2 id="songt">your song be like</h2>
           <p id="songn">no song selected</p>
         </div>
-        <audio id="audio"></audio>
-        
+        <audio id="sound"></audio>
+        <div class="prog">
+          <span id="time">0:00</span>
+          <input id="seek" type="range" min="0" max="100" value="0">
+          <span id="dur">0:00</span>
+        </div>
+        <div class="cont">
+          <button id="play" disabled>PLAY</button>
+          <label class="up">
+            add a song!!!!
+            <input id="up" type="file" accept="audio/*">
+          </label>
+        </div>
+        <div class="vol">
+          <label for="vol">Volume</label>
+          <input id="vol" type="range" min="0" max="1" step="0.01" value="0.7">
+        </div>
       </section>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>
