@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Cassette Buddy</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <header>
-            <div id="top">
-                <h1>Cassette Buddy</h1>
-                <p>music really is a humans best friend</p>
-            </div>
-            
-        </header>
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title>Cassette Buddy</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <header>
+      <div id="top">
+        <h1>Cassette Buddy</h1>
+        <p>music really is a humans best friend</p>
+      </div>
+    </header>
+    <main>
+      <section id="user">
+        <div id="sce"><p id="stat">loading ur Cassette</p></div>
+        <div id="song">
+          <h2 id="songt">your song be like</h2>
+          <p id="songn">no song selected</p>
+        </div>
+        <audio id="audio"></audio>
+        
+      </section>
+    </main>
+  </body>
 </html>
