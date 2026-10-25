@@ -60,7 +60,7 @@ mtl.load("body.mtl",loadedMats=>{
             ren.render(sce,cam);
         });
         const rload=new OBJLoader();
-        rload.setPath("mosels/");
+        rload.setPath("models/");
         rload.load("rightw.obj",wheel=>{
             parts.rightw=wheel;
             wheel.rotation.x=-Math.PI/2;
