@@ -10,6 +10,8 @@
 }
 *{
     box-sizing: border-box;
+    font-family: "Coral Pixels", cursive;
+    color: #fff8e7;
 }
 body{
     margin: 0;
