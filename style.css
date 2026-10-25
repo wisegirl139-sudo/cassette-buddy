@@ -34,3 +34,18 @@ header p{
     transform: translateY(-40px);
     font-size: large;
 }
+main{
+    width: min(1000px,94%);
+    margin: 0px auto 50px;
+}
+#user{
+    padding: 10px 20px 30px;
+    background: transparent;
+}
+/*i can comment , why is this such complex notation for commenting like dont get me wrong but this doesnt eat*/
+#stat{
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: cnetre;
+}
