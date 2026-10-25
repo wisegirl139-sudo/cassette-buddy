@@ -88,6 +88,9 @@ size();
 window.addEventListener("resize",size);
 ren.render(sce,cam);
 //forgot to comment for a while but rn im just adding like pivots and stuff might change up code drastically
+
+const playlist=document.querySelector("#playlist");
+const play=document.querySelector("#play");
 const up=document.querySelector("#up");
 const sound=document.querySelector("#sound");//i should really get somw sound sleep on g
 function spin() {
@@ -100,48 +103,46 @@ function spin() {
     requestAnimationFrame(spin);
 }
 spin();
-
-up.addEventListener("change",()=>{
-    const file=up.files[0];
-    if(!file) return;
-    sound.src=URL.createObjectURL(file);
-    sound.load();
-    document.querySelector("#songn").textContent=file.name;
-    document.querySelector("#play").disabled=false;
-});
-const play = document.querySelector("#play");
-play.addEventListener("click", () => {
-    if (sound.paused) {
+play.addEventListener("click",()=>{
+    if(sound.paused){
         sound.play();
-        play.textContent = "PAUSE";
-    } else {
+    }else{
         sound.pause();
-        play.textContent = "PLAY";
     }
 });
-const playlist=document.querySelector("#playlist");
+sound.addEventListener("play",()=>{
+    play.textContent="PAUSE";
+});
+sound.addEventListener("pause",()=>{
+    play.textContent="PLAY";
+});
+
+let songs=[];
+let current=-1;
 up.addEventListener("change",()=>{
-    const files=[...up.files];
-    files.forEach(file=>{
-        const song=document.createElement("button");
-        song.textContent=file.name;
-        song.addEventListener("click",()=>{
+    songs.push(...up.files);
+    playlist.innerHTML="";
+    songs.forEach((file,i)=>{
+        const btn=document.createElement("button");
+        btn.textContent=file.name;
+        btn.addEventListener("click",()=>{
+            current=i;
             sound.src=URL.createObjectURL(file);
             sound.load();
             document.querySelector("#songn").textContent=file.name;
             play.disabled=false;
-            play.textContent="PLAY";
+            sound.play();
         });
-        playlist.appendChild(btn); 
+        playlist.appendChild(btn);
     });
     up.value="";
 });
-//making the playlist automatically play next song ofc ofc
 sound.addEventListener("ended",()=>{
-    const current=songs.findIndex(song=>song.name===document.querySelector("#songn").textContent);
-    if(current>=0 && current<songs.length-1){
-        sound.src=URL.createObjectURL(songs[current+1]);
-        document.querySelector("#songn").textContent=songs[current+1].name;
+    if (current<songs.length-1 && current>=0){
+        current++;
+        sound.src=URL.createObjectURL(songs[current]);
+        sound.load();
+        document.querySelector("#songn").textContent=songs[current].name;
         sound.play();
     }
 });
