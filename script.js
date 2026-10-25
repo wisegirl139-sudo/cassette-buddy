@@ -76,3 +76,14 @@ mtl.load("body.mtl",loadedMats=>{
 size();
 window.addEventListener("resize",size);
 ren.render(sce,cam);
+function spin(){
+    if(parts.leftw){
+        parts.leftw.rotation.y+=0.05;
+    }
+    if(parts.rightw){
+        parts.rightw.rotation.y+=0.05;
+    }
+    ren.render(sce,cam);
+    requestAnimationFrame(spin);
+}
+spin();
