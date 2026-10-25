@@ -51,6 +51,7 @@ main{
     margin: 0;
     text-align: center;
     pointer-events: none;
+    padding-top: 25%;
 }
 /*need sce bc other wise it goes off page and not off the cassette*/
 #sce{
@@ -59,6 +60,7 @@ main{
     min-height: 320px;
     position: relative;
     background: #f49c43a8 ;
+    border-radius: 20px;
 }
 #song{
     text-align: center;
@@ -72,4 +74,34 @@ songt{
 songn{
     margin: 0;
     font-size: 1.2rem;
+}
+.prog{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: min(650px,100%);
+    margin: 20px auto;
+    font-size: 0.8rem;
+}
+#seek{
+    flex: 1;
+    min-width: 0;
+    accent-color: #e65335;
+}
+.cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+button,.up{
+    padding: 10px 20px;
+    border: 2px solid#e65335;
+    border-radius: 5px;
+    background-color: #ffcf70;
+    color: #a92e32;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: move 0.2s , bgcol 0.2s;
 }
