@@ -159,4 +159,7 @@ button:disabled{
     .prog{
         gap:8px;
     }
+    #stat{
+        padding-top: 40%;
+    }
 }
