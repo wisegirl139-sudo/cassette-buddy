@@ -63,6 +63,7 @@ main{
     position: relative;
     background: #f49c43a8 ;
     border-radius: 20px;
+    z-index: 2;
 }
 #song{
     text-align: center;
@@ -205,14 +206,14 @@ button:disabled{
     inset: 0;
     pointer-events: none;
     overflow: hidden;
-    z-index: 10;
+    z-index: 1;
 }
 @keyframes floatu{
     from{
         transform: translate(0);
         opacity: 1;
     }to{
-        transform: translateY(-110vh);
+        transform: translateY(-200vh);
         opacity: 0;
     }
 }
