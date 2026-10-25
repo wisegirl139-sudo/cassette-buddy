@@ -32,9 +32,9 @@ function addWheel(wheel, name) {
     const box=new THREE.Box3().setFromObject(wheel);
     const ctr=box.getCenter(new THREE.Vector3());
     const pivot= new THREE.Group();
+    pivot.position.set(-cent.x*sca+ctr.x,-cent.y*sca+ctr.y,-cent.z*sca+ctr.z);
     sce.add(pivot);
     wheel.position.sub(ctr);
-    pivot.position.copy(ctr);
     pivot.add(wheel);
     parts[name]=pivot;
 }
