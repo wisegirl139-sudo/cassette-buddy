@@ -59,6 +59,16 @@ mtl.load("body.mtl",loadedMats=>{
             sce.add(wheel);
             ren.render(sce,cam);
         });
+        const rload=new OBJLoader();
+        rload.setPath("mosels/");
+        rload.load("rightw.obj",wheel=>{
+            parts.rightw=wheel;
+            wheel.rotation.x=-Math.PI/2;
+            wheel.scale.setScalar(sca);
+            wheel.position.set(-cent.x*sca,-cent.y*sca,-cent.z*sca);
+            sce.add(wheel);
+            ren.render(sce,cam);
+        });
     
     });
 
