@@ -88,16 +88,19 @@ size();
 window.addEventListener("resize",size);
 ren.render(sce,cam);
 //forgot to comment for a while but rn im just adding like pivots and stuff might change up code drastically
+const up=document.querySelector("#up");
+const sound=document.querySelector("#sound");//i should really get somw sound sleep on g
 function spin() {
-    if (parts.leftw) parts.leftw.rotation.z += 0.05;
-    if (parts.rightw) parts.rightw.rotation.z += 0.05;
+    if(!sound.paused && !sound.ended){
+        if (parts.leftw) parts.leftw.rotation.z += 0.05;
+        if (parts.rightw) parts.rightw.rotation.z += 0.05; 
+    }
     ctl.update();
     ren.render(sce, cam);
     requestAnimationFrame(spin);
 }
 spin();
-const up=document.querySelector("#up");
-const sound=document.querySelector("#sound");//i should really get somw sound sleep on g
+
 up.addEventListener("change",()=>{
     const file=up.files[0];
     if(!file) return;

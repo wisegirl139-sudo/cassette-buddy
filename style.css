@@ -67,10 +67,11 @@ main{
     margin: 10px auto 25px;
     overflow-wrap: anywhere;
 }
-songt{
+#songt {
     margin-bottom: 8px;
-    font-size: 0.9rem;
+    font-size: 1.3rem;
     font-family: "Coral Pixels", serif;
+    color: #e65335;
 }
 songn{
     margin: 0;
