@@ -119,21 +119,22 @@ play.addEventListener("click", () => {
         play.textContent = "PLAY";
     }
 });
-let songs=[];
+const playlist=document.querySelector("#playlist");
 up.addEventListener("change",()=>{
-    songs=[...songs,...up.files];
-    playlist.innerHTML="";
-    songs.forEach((song,i)=>{
-        const btn=document.createElement("button");
-        btn.textContent=song.name;
-        btn.addEventListener("click",()=>{
-            sound.src=URL.createObjectURL(song);
-            sound.play();
-            document.querySelector("#songn").textContent=song.name;
+    const files=[...up.files];
+    files.forEach(file=>{
+        const song=document.createElement("button");
+        song.textContent=file.name;
+        song.addEventListener("click",()=>{
+            sound.src=URL.createObjectURL(file);
+            sound.load();
+            document.querySelector("#songn").textContent=file.name;
             play.disabled=false;
+            play.textContent="PLAY";
         });
-        playlist.appendChild(btn);
+        playlist.appendChild(btn); 
     });
+    up.value="";
 });
 //making the playlist automatically play next song ofc ofc
 sound.addEventListener("ended",()=>{
