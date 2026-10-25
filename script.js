@@ -3,3 +3,8 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 const sce=new THREE.scene();
 sce.background=null;
+const cam=new THREE.PrespectiveCamera(45,1,0.1,1000);
+cam.position.z=5;
+const ren=new THREE.WebGLRenderer({antialias:true,alpha:true});
+ren.setPixelRatio(window.devicePixelRatio);
+document.querySelector("#sce").appendChild(ren.domElement);
