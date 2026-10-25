@@ -20,6 +20,12 @@ body{
 header{
     margin: 0;
     color: #fff8e7;
-    text-shadow: 3px 4px 0 #a92e32;
+    
     text-align: center;
+}
+header h1{
+    font-family: "Coral Pixels", serif;
+}
+header p{
+    text-shadow: 3px 2px 0 #a92e32;
 }
