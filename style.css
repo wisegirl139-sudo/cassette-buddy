@@ -105,3 +105,29 @@ button,.up{
     font-size: 1rem;
     transition: move 0.2s , bgcol 0.2s;
 }
+button:hover{
+    background-color: #ffe7a6;
+    transform: translateY(-2px);
+    box-shadow: 0 0 5px #a92e32;
+}
+button:disabled{
+    opacity: 0.5;
+    transform: none;
+}
+.up input{
+    display: none;
+}
+.vol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: min(300px,100%);
+    margin:  25px auto 0;
+    font-size: 0.85rem;
+}
+#vol{
+    flex: 1;
+    min-width: 0;
+    accent-color: #e65335;
+}
