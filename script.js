@@ -96,3 +96,13 @@ function spin() {
     requestAnimationFrame(spin);
 }
 spin();
+const up=document.querySelector("#up");
+const sound=document.querySelector("#sound");//i should really get somw sound sleep on g
+up.addEventListener("change",()=>{
+    const file=up.files[0];
+    if(!file) return;
+    sound.src=URL.createObjectURL(file);
+    sound.load();
+    document.querySelector("#songn").textContent=file.name;
+    document.querySelector("#play").disabled=false;
+});
