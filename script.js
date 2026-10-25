@@ -35,6 +35,7 @@ mtl.load("body.mtl",mats=>{
         parts.body=body;
         body.position.set(0,0,0);
         sce.add(body);
+        body.rotation.x=-Math.PI/2;
         parts.body=body;
         const box=new THREE.Box3().setFromObject(body);
         const cent=box.getCenter(new THREE.Vector3());
