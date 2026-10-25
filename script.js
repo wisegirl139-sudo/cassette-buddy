@@ -147,3 +147,27 @@ sound.addEventListener("ended",()=>{
         sound.play();
     }
 });
+//i genuinely forgot about the volume and the prog bar ong
+const vol=document.querySelector("#vol");
+vol.addEventListener("input",()=>{
+    sound.volume=vol.value;
+});
+const seek=document.querySelector("#seek");
+const time=document.querySelector("#time");
+const dur=document.querySelector("#dur");
+function fortime(s){
+    const m= Math.floor(s/60);
+    const sec=Math.floor(s%60);
+    return`${m}:${String(sec).padStart(2,"0")}`;
+}
+sound.addEventListener("loadedmetadata",()=>{
+    seek.max=sound.duration;
+    dur.textContent=fortime(sound.duration);
+});
+sound.addEventListener("timeupdate",()=>{
+    seek.value=sound.currentTime;
+    time.textContent=fortime(sound.currentTime);
+});
+seek.addEventListener("input",()=>{
+    sound.currentTime=seek.value
+});
