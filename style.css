@@ -48,4 +48,28 @@ main{
     inset: 0;
     display: grid;
     place-items: cnetre;
+    margin: 0;
+    text-align: center;
+    pointer-events: none;
+}
+/*need sce bc other wise it goes off page and not off the cassette*/
+#sce{
+    width: 100%;
+    height: min(55vw,500px);
+    min-height: 320px;
+    position: relative;
+    background: #f49c43a8 ;
+}
+#song{
+    text-align: center;
+    margin: 10px auto 25px;
+    overflow-wrap: anywhere;
+}
+songt{
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+songn{
+    margin: 0;
+    font-size: 1.2rem;
 }
