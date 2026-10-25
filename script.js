@@ -23,10 +23,14 @@ function size(){
     ren.render(sce,cam);
 }
 //cassette time
+let mats;
+let cent;
+let sca;
 const parts={};
 const mtl= new MTLLoader();
 mtl.setPath("models/");
-mtl.load("body.mtl",mats=>{
+mtl.load("body.mtl",loadedMats=>{
+    mats=loadedMats;
     mats.preload();
     const obj= new OBJLoader();
     obj.setMaterials(mats);
@@ -37,15 +41,27 @@ mtl.load("body.mtl",mats=>{
         sce.add(body);
         body.rotation.x=-Math.PI/2;
         parts.body=body;
-        const box=new THREE.Box3().setFromObject(body);
-        const cent=box.getCenter(new THREE.Vector3());
-        const size=box.getSize(new THREE.Vector3());
-        const sca=3/Math.max(size.x,size.y,size.z);
+        const box = new THREE.Box3().setFromObject(body);
+        cent = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+        sca = 3 / Math.max(size.x, size.y, size.z);
         body.scale.setScalar(sca);
         body.position.set(-cent.x*sca,-cent.y*sca,-cent.z*sca);
         document.querySelector("#stat").textContent="";
         ren.render(sce,cam);
+        const wload= new OBJLoader();
+        wload.setPath("models/");
+        wload.load("leftw.obj",wheel=>{
+            parts.leftw=wheel;
+            wheel.rotation.x=-Math.PI/2;
+            wheel.scale.setScalar(sca);
+            wheel.position.set(-cent.x*sca,-cent.y*sca,-cent.z*sca);
+            sce.add(wheel);
+            ren.render(sce,cam);
+        });
+    
     });
+
 });
 size();
 window.addEventListener("resize",size);
