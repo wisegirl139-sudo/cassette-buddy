@@ -38,10 +38,9 @@ mtl.load("body.mtl",mats=>{
         parts.body=body;
         const box=new THREE.Box3().setFromObject(body);
         const cent=box.getCenter(new THREE.Vector3());
-        const dim=box.getSize(new THREE.Vector3());
         const size=box.getSize(new THREE.Vector3());
         const sca=3/Math.max(size.x,size.y,size.z);
-        body.position.setScalar(sca);
+        body.scale.setScalar(sca);
         body.position.set(-cent.x*sca,-cent.y*sca,-cent.z*sca);
         document.querySelector("#stat").textContent="";
         ren.render(sce,cam);
