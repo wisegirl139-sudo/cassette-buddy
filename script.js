@@ -171,11 +171,23 @@ sound.addEventListener("timeupdate",()=>{
 seek.addEventListener("input",()=>{
     sound.currentTime=seek.value
 });
+const notes=document.querySelector("#notes");
 function makenote(){
     const note=document.createElement("img");
     note.classList.add("note");
     note.src=["img/note1.png","img/note2.png","img/note3.png"][Math.floor(Math.random()*3)];
     note.style.left=Math.random()*100+"%";
-    NavigationDestination.appendChild(note);
+    notes.appendChild(note);
     note.addEventListener("animationend",()=>note.remove());
 }
+let notetimer;
+sound.addEventListener("play",()=>{
+    makenote();
+    notetimer=setInterval(makenote,500);
+});
+sound.addEventListener("pause",()=>{
+    clearInterval(notetimer);
+});
+sound.addEventListener("ended",()=>{
+    clearInterval(notetimer);
+});

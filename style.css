@@ -200,10 +200,19 @@ button:disabled{
     height: auto;
     animation: floatu 4s linear forwards;
 }
-#note{
+#notes{
     position: fixed;
     inset: 0;
     pointer-events: none;
     overflow: hidden;
     z-index: 10;
+}
+@keyframes floatu{
+    from{
+        transform: translate(0);
+        opacity: 1;
+    }to{
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
 }
