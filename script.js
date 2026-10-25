@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 const sce=new THREE.Scene();
@@ -9,6 +10,14 @@ cam.lookAt(0,0,0);
 const ren=new THREE.WebGLRenderer({antialias:true,alpha:true});
 ren.setPixelRatio(window.devicePixelRatio);
 document.querySelector("#sce").appendChild(ren.domElement);
+const ctl= new OrbitControls(cam,ren.domElement);
+ctl.enableDamping=true;
+ctl.dampingFactor=0.05;
+ctl.enableZoom=true;
+ctl.minDistance=2;
+ctl.maxDistance=10;
+ctl.target.set(0,0,0);
+ctl.update();
 //lets light up the fitting rrom , literally adding lighting and fitting to screen 
 const lit=new THREE.AmbientLight(0xffffff,2);
 sce.add(lit);
@@ -82,6 +91,7 @@ ren.render(sce,cam);
 function spin() {
     if (parts.leftw) parts.leftw.rotation.z += 0.05;
     if (parts.rightw) parts.rightw.rotation.z += 0.05;
+    ctl.update();
     ren.render(sce, cam);
     requestAnimationFrame(spin);
 }

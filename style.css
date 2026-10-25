@@ -163,3 +163,10 @@ button:disabled{
         padding-top: 40%;
     }
 }
+#sce canvas{
+    touch-action: none;
+    cursor: grab;
+}
+#sce canvas:active{
+    cursor: grabbing;
+}
