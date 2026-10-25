@@ -116,27 +116,28 @@ sound.addEventListener("play",()=>{
 sound.addEventListener("pause",()=>{
     play.textContent="PLAY";
 });
-
-let songs=[];
-let current=-1;
+let songs = [];
+let current = -1;
 up.addEventListener("change",()=>{
     songs.push(...up.files);
-    playlist.innerHTML="";
-    songs.forEach((file,i)=>{
-        const btn=document.createElement("button");
-        btn.textContent=file.name;
-        btn.addEventListener("click",()=>{
+    playlist.innerHTML = "";
+    songs.forEach((file, i)=>{
+        const song = document.createElement("p");
+        song.textContent = file.name;
+        song.classList.add("track");
+        song.addEventListener("click", ()=>{
             current=i;
             sound.src=URL.createObjectURL(file);
             sound.load();
             document.querySelector("#songn").textContent=file.name;
-            play.disabled=false;
+            play.disabled= false;
             sound.play();
         });
-        playlist.appendChild(btn);
+        playlist.appendChild(song);
     });
     up.value="";
 });
+
 sound.addEventListener("ended",()=>{
     if (current<songs.length-1 && current>=0){
         current++;

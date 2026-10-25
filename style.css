@@ -171,3 +171,23 @@ button:disabled{
 #sce canvas:active{
     cursor: grabbing;
 }
+#playlist{
+    text-align: left;
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 8px 12px;
+}
+.track{
+    margin: 0;
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #e65335;
+    color: #a92e32;
+}
+.track:hover{
+    text-shadow: 0 0 3px #a92e32;
+    background: #ffcf70;
+}
+.track:active{
+    color:#0b1838;
+}
