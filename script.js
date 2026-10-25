@@ -8,3 +8,14 @@ cam.position.z=5;
 const ren=new THREE.WebGLRenderer({antialias:true,alpha:true});
 ren.setPixelRatio(window.devicePixelRatio);
 document.querySelector("#sce").appendChild(ren.domElement);
+//lets light up the fitting rrom , literally adding lighting and fitting to screen 
+const lit=new THREE.AmbientLight(0xffffff,2);
+sce.add(lit);
+const sun=new THREE.DirectionalLight(0xffffff,3);
+sun.position.set(2,3,5);
+sce.add(sun);
+function size(){
+    ren.setSize(document.querySelector("#sce").clientWidth,document.querySelector("#sce").clientHeight);
+    cam.aspect=document.querySelector("#sce").clientWidth/document.querySelector("#sce").clientHeight;
+    cam.updateProjectionMatrix();
+}
