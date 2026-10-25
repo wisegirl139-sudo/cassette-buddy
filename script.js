@@ -19,3 +19,16 @@ function size(){
     cam.aspect=document.querySelector("#sce").clientWidth/document.querySelector("#sce").clientHeight;
     cam.updateProjectionMatrix();
 }
+//cassette time
+const parts={};
+const mtl= new MTLLoader();
+mtl.setPath("models/");
+mtl.load("body.mtl",mats=>{
+    mats.preload();
+    const obj= new OBJLoader();
+    obj.setMaterials(mats);
+    obj.setPath("models/");
+    obj.load("body.obj",body=>{
+        parts.body=body;
+    });
+});
