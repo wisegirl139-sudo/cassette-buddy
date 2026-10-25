@@ -26,6 +26,18 @@ function size(){
 let mats;
 let cent;
 let sca;
+function addWheel(wheel, name) {
+    wheel.rotation.x=-Math.PI/2;
+    wheel.scale.setScalar(sca);
+    const box=new THREE.Box3().setFromObject(wheel);
+    const ctr=box.getCenter(new THREE.Vector3());
+    const pivot= new THREE.Group();
+    sce.add(pivot);
+    wheel.position.sub(ctr);
+    pivot.position.copy(ctr);
+    pivot.add(wheel);
+    parts[name]=pivot;
+}
 const parts={};
 const mtl= new MTLLoader();
 mtl.setPath("models/");
@@ -51,23 +63,13 @@ mtl.load("body.mtl",loadedMats=>{
         ren.render(sce,cam);
         const wload= new OBJLoader();
         wload.setPath("models/");
-        wload.load("leftw.obj",wheel=>{
-            parts.leftw=wheel;
-            wheel.rotation.x=-Math.PI/2;
-            wheel.scale.setScalar(sca);
-            wheel.position.set(-cent.x*sca,-cent.y*sca,-cent.z*sca);
-            sce.add(wheel);
-            ren.render(sce,cam);
+        wload.load("leftw.obj", wheel => {
+            addWheel(wheel, "leftw");
         });
         const rload=new OBJLoader();
         rload.setPath("models/");
-        rload.load("rightw.obj",wheel=>{
-            parts.rightw=wheel;
-            wheel.rotation.x=-Math.PI/2;
-            wheel.scale.setScalar(sca);
-            wheel.position.set(-cent.x*sca,-cent.y*sca,-cent.z*sca);
-            sce.add(wheel);
-            ren.render(sce,cam);
+        rload.load("rightw.obj", wheel => {
+            addWheel(wheel, "rightw");
         });
     
     });
@@ -76,14 +78,11 @@ mtl.load("body.mtl",loadedMats=>{
 size();
 window.addEventListener("resize",size);
 ren.render(sce,cam);
-function spin(){
-    if(parts.leftw){
-        parts.leftw.rotation.y+=0.05;
-    }
-    if(parts.rightw){
-        parts.rightw.rotation.y+=0.05;
-    }
-    ren.render(sce,cam);
+//forgot to comment for a while but rn im just adding like pivots and stuff might change up code drastically
+function spin() {
+    if (parts.leftw) parts.leftw.rotation.z += 0.05;
+    if (parts.rightw) parts.rightw.rotation.z += 0.05;
+    ren.render(sce, cam);
     requestAnimationFrame(spin);
 }
 spin();
