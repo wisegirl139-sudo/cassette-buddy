@@ -106,12 +106,13 @@ up.addEventListener("change",()=>{
     document.querySelector("#songn").textContent=file.name;
     document.querySelector("#play").disabled=false;
 });
-document.querySelector("#play").addEventListener("click",()=>{
-    if(sound.paused){
+const play = document.querySelector("#play");
+play.addEventListener("click", () => {
+    if (sound.paused) {
         sound.play();
-        document,querySelector("#play").textContent="PAUSE";
-    }else{
+        play.textContent = "PAUSE";
+    } else {
         sound.pause();
-        document.querySelector("#play").textContent="PLAY";//ALL CAPS FOR BENG FORMAL
+        play.textContent = "PLAY";
     }
 });
