@@ -14,18 +14,22 @@
 body{
     margin: 0;
     font-family: "Rubik Pixels", system-ui;
-    color: #fff8e7;
-    background-color: #e65335;
+    color: #e65335;
+    background-color:#fff8e7 ;
 }
 header{
     margin: 0;
     color: #fff8e7;
-    
     text-align: center;
-}
-header h1{
     font-family: "Coral Pixels", serif;
 }
+header h1{
+    
+    font-size: clamp(2.2rem,6vw,4rem);
+}
 header p{
-    text-shadow: 3px 2px 0 #a92e32;
+    text-shadow: 0 0 5px #a92e32;
+    margin-top: 1px;
+    margin-bottom: 0;
+    font-weight: 400;
 }
