@@ -193,3 +193,17 @@ button:disabled{
 .track:active{
     color:#0b1838;
 }
+.note{
+    position: absolute;
+    bottom: -40px;
+    width: 35px;
+    height: auto;
+    animation: floatu 4s linear forwards;
+}
+#note{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 10;
+}
