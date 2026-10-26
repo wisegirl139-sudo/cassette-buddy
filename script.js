@@ -1,17 +1,19 @@
 import { supabase } from "./supabase.js";
-async function startsesh(){
-    const{data,error}=await supabase.auth.signInAnonymously();
-    if(error){
-        console.error("could not start session:",error.message);
-        return false;
-    }
-    return true;
-}
-const sessionReady=startsesh();
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+async function startsesh() {
+    const {data:existing}=await supabase.auth.getSession();
+    if (existing.session) return true;
+    const {error} = await supabase.auth.signInAnonymously();
+    if (error) {
+        console.error("Could not start session:", error.message);
+        return false;
+    }
+    return true;
+}
+const sessionReady = startsesh();
 const sce=new THREE.Scene();
 sce.background=null;
 const cam=new THREE.PerspectiveCamera(45,1,0.1,1000);
@@ -202,16 +204,21 @@ sound.addEventListener("ended",()=>{
     clearInterval(notetimer);
 });
 //doing create+join room
+let currentroomid=null;
+let currentroomcode=null;
 async function createroom() {
     const ready=await startsesh();
     if(!ready) return;
     const {data,error}=await supabase.rpc("create_room");
     if(error){
         console.error("room creation failed:",error.message);
+        alert("couldnt create room check console");
         return;
     }
-    console.log("your room code:",data);
-    alert("your room code is :"+data);
+    currentroomid=data.room_id;
+    currentroomcode=data.code
+    console.log("room id:", currentroomid);
+    alert("your room code is :"+currentroomcode);
 }
 async function joinroom(code) {
     const ready=await startsesh();
@@ -219,11 +226,31 @@ async function joinroom(code) {
     const{data,error}=await supabase.rpc("join_room",{room_code:code.trim().toUpperCase()});
     if(error){
         console.error("joining room failed:",error.message);
+        alert("check console smth failed")
         return;
     }
     if(!data){
-        alert("room not found");
+        alert("room not found,check code");
         return;
     }
-    alert("joined room:"+ code.toUpperCase());
+    currentroomcode=data.code;
+    currentroomid=data.room_id;
+    alert("joined room:"+ currentroomcode);
+    console.log("room id:",currentroomid)
 }
+//aghh finally back to frontish a place i truly call home 
+document.querySelector("#creroom").addEventListener("click",async()=>{
+    await createroom();
+    if(currentroomcode){
+        document.querySelector("#roomstat").textContent="room code:"+currentroomcode;
+    }
+});
+document.querySelector("#joinroom").addEventListener("click",async()=>{
+    const code=document.querySelector("#roomcode").value;
+    if(!code.trim()){
+        alert("enter a room code first");
+        return;
+    }
+    await joinroom(code);
+    if(currentroomcode){document.querySelector("#roomstat").textContent="joined room:"+currentroomcode}
+});

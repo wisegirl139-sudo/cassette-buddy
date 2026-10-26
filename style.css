@@ -217,3 +217,10 @@ button:disabled{
         opacity: 0;
     }
 }
+#roomcode{
+    background: #fff8e7;
+    color: #29251f;
+    border: 2px solid #29251f;
+    border-radius: 8px;
+    padding: ;
+}

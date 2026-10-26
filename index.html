@@ -18,6 +18,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Pixels&display=swap" rel="stylesheet">
+  
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+        "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+      }
+    }
+    </script>
+
   </head>
   <body>
     <header>
@@ -52,6 +63,15 @@
         <div id="playlist"></div>
       </section>
       <div id="notes"></div>
+      <section id="rooms">
+        <h2>listen together</h2>
+        <button id="creroom">create room</button>
+        <div>
+          <input id="roomcode" type="text" placeholder="enter room code" maxlength="6">
+          <button id="joinroom">join room</button>
+        </div>
+        <p id="roomstat">not connected to a room</p>
+      </section>
     </main>
     <script type="module" src="script.js"></script>
   </body>
