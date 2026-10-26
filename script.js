@@ -201,3 +201,15 @@ sound.addEventListener("pause",()=>{
 sound.addEventListener("ended",()=>{
     clearInterval(notetimer);
 });
+//doing create+join room
+async function createroom() {
+    const ready=await startsesh();
+    if(!ready) return;
+    const {data,error}=await supabase.rpc("create_room");
+    if(error){
+        console.error("room creation failed:",error.message);
+        return;
+    }
+    console.log("your room code:",data);
+    alert("your room code is :"+data);
+}
