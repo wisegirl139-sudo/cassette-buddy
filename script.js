@@ -157,7 +157,9 @@ function renderPlaylist(){
         item.classList.add("track");
         item.addEventListener("click",async()=>{
             current=i;
-            const {data,error}=await supabase.from("songs").select("*").eq("room_id", currentroomid).order("created_at", {ascending:true});
+            const { data, error } = await supabase.storage
+            .from("songs")
+            .createSignedUrl(song.file_url, 3600);
             if(error){
                 console.error("could not access audio:",error.message);
                 alert("couldnt load this song");
@@ -167,7 +169,7 @@ function renderPlaylist(){
             sound.load();
             document.querySelector("#songn").textContent=song.title;
             play.disabled=false;
-            sound.play.catch(err=>console.error("playback failed:",err));
+            sound.play().catch(err => console.error("playback failed:", err));       
         });
         playlist.appendChild(item);
     });
