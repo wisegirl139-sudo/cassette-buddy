@@ -133,16 +133,22 @@ let currentroomcode=null;
 let songs = [];
 let current = -1;
 let songchannel=null;
-async function lsd(){
-    if(!currentroomid) return;
-    const {data,error}=await supabase.from("songs").select("*").eq("room_id",{ascending:true});
-    if(error){
-        console.error("could not load playlist:",error.message);
+
+async function lsd() {
+    if (!currentroomid) return;
+    const { data, error } = await supabase
+        .from("songs")
+        .select("*")
+        .eq("room_id", currentroomid)
+        .order("created_at", { ascending: true });
+    if (error) {
+        console.error("could not load playlist:", error.message);
         return;
     }
-    songs=data;
+    songs = data;
     renderPlaylist();
 }
+
 function renderPlaylist(){
     playlist.innerHTML="";
     songs.forEach((song,i)=>{
