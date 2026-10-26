@@ -218,9 +218,29 @@ button:disabled{
     }
 }
 #roomcode{
-    background: #fff8e7;
+    background: #e76f5156;
     color: #29251f;
     border: 2px solid #29251f;
     border-radius: 8px;
-    padding: ;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    width: 200px;
+    transition: border-color 0.2s ,box-shadow 0.2s;
+
+}
+#roomcode::placeholder{
+    color: #8b8275;
+}
+#roomcode::focus{
+    border-color: #e76f51;
+    box-shadow: 0 0 0 3px #e76f51cf;
+}
+#rooms{
+    text-align: center;
+}
+#roomcode{
+    display: block;
+    margin: 12px auto;
 }
