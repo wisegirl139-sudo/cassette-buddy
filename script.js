@@ -163,6 +163,35 @@ function renderPlaylist(){
         });
         playlist.appendChild(item);
     });
+}
+async function uploadsongs(files) {
+    if(!currentroomid){
+        alert("create or join a room before uploading songs");
+        return;
+
+    }
+    for(const file of files){
+        if(!file.type.startsWith("audio/")){
+            console.warn("skipping non audio files:",file.name);//precautions u can tell when i havent done smth for a wheile if theres a lot of precautions
+            continue;
+        }
+        const safename=file.name.replace(/[^\w.-]/g, "_");
+        const path=`${currentroomid}/${crypto.randomUUID()}-${safename}`;
+        const{error:uploadError}=await supabase.storage.from("songs").upload(path,file,{contentType:file.type});
+        if(uploadError){
+            console.error("upload failed:", uploadError.message);
+            alert("couldnt upload"+file.name+".check the console");
+            continue;
+        }
+        const {error:insertError}=await supabase.from("songs").insert({room_id:currentroomid,title:file.name,file_url:path});
+        if(insertError){
+            console.error("saving song failed",insertError.message);
+            alert("uploaded the file but cant add to play list ")
+        }
+
+    }
+    
+    await lsd();
     
 }
 //i genuinely forgot about the volume and the prog bar ong
