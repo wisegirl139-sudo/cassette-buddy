@@ -1,3 +1,13 @@
+import { supabase } from "./supabase.js";
+async function startsesh(){
+    const{data,error}=await supabase.auth.signInAnonymously();
+    if(error){
+        console.error("could not start session:",error.message);
+        return false;
+    }
+    return true;
+}
+const sessionReady=startsesh();
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
