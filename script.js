@@ -128,6 +128,8 @@ sound.addEventListener("play",()=>{
 sound.addEventListener("pause",()=>{
     play.textContent="PLAY";
 });
+let currentroomid=null;
+let currentroomcode=null;
 let songs = [];
 let current = -1;
 let songchannel=null;
@@ -149,7 +151,7 @@ function renderPlaylist(){
         item.classList.add("track");
         item.addEventListener("click",async()=>{
             current=i;
-            const{data,error}=await supabase.storage.from("songs").createSignedUrl(song.file_url,3600);
+            const {data,error}=await supabase.from("songs").select("*").eq("room_id", currentroomid).order("created_at", {ascending:true});
             if(error){
                 console.error("could not access audio:",error.message);
                 alert("couldnt load this song");
@@ -192,8 +194,26 @@ async function uploadsongs(files) {
     }
     
     await lsd();
-    
+
 }
+//this is starting to pmo ong like wtf is thiss uhreqfcdgbshnachwdina
+up.addEventListener("change",async()=>{
+    await uploadsongs([...up.files]);
+    up.value="";
+});
+function sts(){
+    if(!currentroomid) return;
+    if(songchannel){
+        supabase.removeChannel(songchannel);
+    }
+    songchannel=supabase.channel("room-songs-"+currentroomid).on("postgres_changes",{event:"*",schema:"public",table:"songs", filter:"room_id=eq."+currentroomid},()=>lsd()).subscribe();
+}
+sound.addEventListener("ended",()=>{
+    if(current>=0 && current<songs.length-1){
+        const next= playlist.children[current+1];
+        if(next) next.click();
+    }
+});
 //i genuinely forgot about the volume and the prog bar ong
 const vol=document.querySelector("#vol");
 vol.addEventListener("input",()=>{
@@ -239,8 +259,7 @@ sound.addEventListener("ended",()=>{
     clearInterval(notetimer);
 });
 //doing create+join room
-let currentroomid=null;
-let currentroomcode=null;
+
 async function createroom() {
     const ready=await startsesh();
     if(!ready) return;
@@ -252,6 +271,8 @@ async function createroom() {
     }
     currentroomid=data.room_id;
     currentroomcode=data.code
+    await lsd();
+    sts();
     console.log("room id:", currentroomid);
     alert("your room code is :"+currentroomcode);
 }
@@ -270,6 +291,8 @@ async function joinroom(code) {
     }
     currentroomcode=data.code;
     currentroomid=data.room_id;
+        await lsd();
+    sts();
     alert("joined room:"+ currentroomcode);
     console.log("room id:",currentroomid)
 }
