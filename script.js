@@ -213,3 +213,17 @@ async function createroom() {
     console.log("your room code:",data);
     alert("your room code is :"+data);
 }
+async function joinroom(code) {
+    const ready=await startsesh();
+    if(!ready) return;
+    const{data,error}=await supabase.rpc("join_room",{room_code:code.trim().toUpperCase()});
+    if(error){
+        console.error("joining room failed:",error.message);
+        return;
+    }
+    if(!data){
+        alert("room not found");
+        return;
+    }
+    alert("joined room:"+ code.toUpperCase());
+}
