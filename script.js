@@ -130,35 +130,41 @@ sound.addEventListener("pause",()=>{
 });
 let songs = [];
 let current = -1;
-up.addEventListener("change",()=>{
-    songs.push(...up.files);
-    playlist.innerHTML = "";
-    songs.forEach((file, i)=>{
-        const song = document.createElement("p");
-        song.textContent = file.name;
-        song.classList.add("track");
-        song.addEventListener("click", ()=>{
-            current=i;
-            sound.src=URL.createObjectURL(file);
-            sound.load();
-            document.querySelector("#songn").textContent=file.name;
-            play.disabled= false;
-            sound.play();
-        });
-        playlist.appendChild(song);
-    });
-    up.value="";
-});
-
-sound.addEventListener("ended",()=>{
-    if (current<songs.length-1 && current>=0){
-        current++;
-        sound.src=URL.createObjectURL(songs[current]);
-        sound.load();
-        document.querySelector("#songn").textContent=songs[current].name;
-        sound.play();
+let songchannel=null;
+async function lsd(){
+    if(!currentroomid) return;
+    const {data,error}=await supabase.from("songs").select("*").eq("room_id",{ascending:true});
+    if(error){
+        console.error("could not load playlist:",error.message);
+        return;
     }
-});
+    songs=data;
+    renderPlaylist();
+}
+function renderPlaylist(){
+    playlist.innerHTML="";
+    songs.forEach((song,i)=>{
+        const item=document.createElement("p");
+        item.textContent=song.title;
+        item.classList.add("track");
+        item.addEventListener("click",async()=>{
+            current=i;
+            const{data,error}=await supabase.storage.from("songs").createSignedUrl(song.file_url,3600);
+            if(error){
+                console.error("could not access audio:",error.message);
+                alert("couldnt load this song");
+                return;
+            }
+            sound.src=data.signedUrl;
+            sound.load();
+            document.querySelector("#songn").textContent=song.title;
+            play.disabled=false;
+            sound.play.catch(err=>console.error("playback failed:",err));
+        });
+        playlist.appendChild(item);
+    });
+    
+}
 //i genuinely forgot about the volume and the prog bar ong
 const vol=document.querySelector("#vol");
 vol.addEventListener("input",()=>{
